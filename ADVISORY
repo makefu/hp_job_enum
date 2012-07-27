@@ -1,0 +1,140 @@
+=================================================================
+
+                           P . T . L .
+
+    P I N I O N S   T E K N I S K A   L A B O R A T O R I U M
+
+                (The Pinion Technical Laboratory)
+
+                      http://www.pinion.se
+
+
+                            Advisory
+
+=================================================================
+
+
+Vulnerability Name
+- - ------------------
+HP LaserJet Network Username and Information Enumeration
+
+
+Pinion ID
+- - ---------
+PTL_advisory_050825
+
+
+Author
+- - ------
+George Hedfors
+
+
+Class
+- - -----
+Configuration Error
+
+
+Remote
+- - ------
+Yes
+
+
+Local
+- - -----
+N/A
+
+
+Discovered
+- - ----------
+August 25 2005
+
+
+Published
+- - ---------
+September 15 2005
+
+
+Updated
+- - -------
+N/A
+
+
+Credit
+- - ------
+This vulnerability was found by George Hedfors.
+
+
+Vulnerable
+- - ----------
+HP LaserJet 2430
+
+Possibly other HP printers that operate using the Jetdirect
+controls.
+
+
+Discussion
+- - ----------
+HP LaserJet printers has an extensive administrative user interface
+provided over SNMP. SNMP is normally used for monitoring applications
+and servers performance but can also be used to perform remote
+configurations.
+
+Pinion has discovered that HP LaserJet printers store information
+regarding recently printed documents. Information such as document
+name, title, number of pages, document size, user who has printed the
+document and the machine name where the print job was initiated.
+
+This document information "cache" is flushed when the document is
+older then one hour but in mean time, the information can be obtained
+by anyone with access to the network and who has information
+regarding the "public" SNMP community configured at the printer.
+
+In reality, an intruder could use this information to obtain possible
+usernames that later could be used in a login brute force attack
+against servers.
+
+Hewlet Packard was informed about this issue on September 7, 2005.
+
+Vendor response: "This information is kept by the printer in the
+printer specific MIB. Jetdirect controls the authentication and
+subsequent authorization to all the MIBs. This authentication/
+authorization can be controlled via SNMP settings."
+
+HP tracking number: SSRT051032
+
+
+Solution
+- - --------
+There is no direct way to prevent the printer from exposing
+information about recently printed documents except for disabling
+SNMP.
+
+Access to administrative features of the LaserJet, including SNMP,
+can be controlled and limited in various ways depending on the
+security requirements of the customer's environment. For more
+information please refer to "HP Jetdirect Embedded Print Server
+Administrator's Guide", chapter 7 - Security Features.
+
+
+References
+- - ----------
+"HP Jetdirect Embedded Print Server Administrator's Guide"
+
+http://h20000.www2.hp.com/bizsupport/TechSupport/DocumentIndex.jsp?
+locale=en_US&contentType=SupportManual&docIndexId=3124&
+prodTypeId=18972&prodSeriesId=416419&lang=en&cc=us
+
+Additional information regarding HP Jetdirect security is available
+here:
+
+http://h20000.www2.hp.com/bizsupport/TechSupport/Document.jsp?
+objectID=bpj05999
+
+http://h20000.www2.hp.com/bizsupport/TechSupport/Document.jsp?
+objectID=c00004828
+
+
+Exploit
+- - -------
+The tool attached provides a possibility to extract the described
+information.
