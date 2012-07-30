@@ -41,6 +41,7 @@
 #
 
 use Net::SNMP;
+use Time::Piece;
 
 # Number of errors in row that is tolerated before exit
 $tolerance = 10;
