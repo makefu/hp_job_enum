@@ -36,8 +36,8 @@ def main(hostname,options):
 
     for desc,oid in oidtable.items():
       data[desc] =  snmp_get(oid% ident)[0][1]
-
-    print ("File: %s with %s pages" % ( unicode(str(data["doc"])[2:],"utf-8"), int(data["pages"])))
+    #print ("File: %s with %s pages" % ( unicode(str(data["doc"]),"utf-8"), int(data["pages"])))
+    print ("File: %s with %s pages" % ( unicode(str(data["doc"]),"latin-1"), int(data["pages"])))
     print ("Date: %s" % time.strftime("%d.%b.%Y %H:%M:%S",time.strptime(splitq(data["time"]),"%Y%m%d%H%M%S")))
     print ("User: %s\\%s from %s"%(splitq(data["domain"]),splitq(data["user"]),splitq(data["id"])))
     print ("Tool: %s (%s)" %(splitq(data["tool"]),splitq(data["tool_exe"])))
