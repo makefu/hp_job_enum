@@ -25,7 +25,10 @@ def main(hostname,options):
 
   # ENUM OID
   def splitq(o):
-    return str(o).split("=")[1]
+    try:
+      return str(o).split("=")[1]
+    except:
+      return "N/A"
   enum_oid = (1,3,6,1,4,1,11,2,3,9,4,2,1,1,6,5,23,1)
   errIndication, errStatus, errIndex, result  = cg.nextCmd(comm_data,transport,enum_oid)
   if errIndication:
@@ -38,7 +41,10 @@ def main(hostname,options):
       data[desc] =  snmp_get(oid% ident)[0][1]
     #print ("File: %s with %s pages" % ( unicode(str(data["doc"]),"utf-8"), int(data["pages"])))
     print ("File: %s with %s pages" % ( unicode(str(data["doc"]),"latin-1"), int(data["pages"])))
-    print ("Date: %s" % time.strftime("%d.%b.%Y %H:%M:%S",time.strptime(splitq(data["time"]),"%Y%m%d%H%M%S")))
+    try:
+      print ("Date: %s" % time.strftime("%d.%b.%Y %H:%M:%S",time.strptime(splitq(data["time"]),"%Y%m%d%H%M%S")))
+    except:
+      print ("Date: N/A")
     print ("User: %s\\%s from %s"%(splitq(data["domain"]),splitq(data["user"]),splitq(data["id"])))
     print ("Tool: %s (%s)" %(splitq(data["tool"]),splitq(data["tool_exe"])))
     print ("")
